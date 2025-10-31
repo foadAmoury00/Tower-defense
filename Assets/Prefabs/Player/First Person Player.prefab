@@ -99,7 +99,8 @@ GameObject:
   - component: {fileID: 7928962664831828262}
   - component: {fileID: 359722446307634048}
   - component: {fileID: 1253986007546086746}
-  - component: {fileID: 3989220664759105401}
+  - component: {fileID: 5520751305636492846}
+  - component: {fileID: 7509153725840280751}
   m_Layer: 3
   m_Name: First Person Player
   m_TagString: Player
@@ -188,7 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: f07995fc54ede4e468cc466250225b4f, type: 3}
+  m_Actions: {fileID: 0}
   m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -280,7 +281,7 @@ MonoBehaviour:
     m_Bits: 67108864
   scaleEaseTime: 0.1
   targetScale: 1.2
---- !u!114 &3989220664759105401
+--- !u!114 &5520751305636492846
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -289,13 +290,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2570353529489383373}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947e9bd5ae0394249831f40a05722053, type: 3}
+  m_Script: {fileID: 11500000, guid: 789ac9c3bf8a128489c964df4f5596b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 7006744926371123422, guid: b6bf15a750afe084ababab9c2f2e5eaf, type: 3}
-  attackRange: 10
-  timeBetweenShots: 0.5
+  TimeBetweenShots: 0.3333
   projectileSpeed: 10
+--- !u!114 &7509153725840280751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2570353529489383373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f161ce5aec1bcef4cb5953a1e2f89794, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3378791450460939291
 GameObject:
   m_ObjectHideFlags: 0

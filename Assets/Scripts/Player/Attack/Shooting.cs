@@ -9,31 +9,51 @@ public class Shooting : MonoBehaviour
     private float m_timeStamp = 0f;
     public float projectileSpeed = 10f;
 
-    public PlayerInput playerInput;
+
 
     private PlayerInputActions playerInputActions;
-
+    
+  
     private void Awake()
     {
         playerInputActions = new PlayerInputActions();
+        playerInputActions.Enable();
     }
 
     void FixedUpdate()
     {
-        if ((Time.time >= m_timeStamp) && playerInputActions.Player.Fire.triggered)
+        if ((Time.time >= m_timeStamp) && playerInputActions.Player.Fire.IsPressed())
         {
+            
             Fire();
             m_timeStamp = Time.time + TimeBetweenShots;
+
         }
+
     }
 
     void Fire()
     {
-        var projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+       
+       Debug.Log("Firing"); 
 
-        projectile.GetComponent<Rigidbody>().linearVelocity = projectile.transform.forward * projectileSpeed;
+        Vector2 mouseXY = playerInputActions.Player.MouseMovement.ReadValue<Vector2>();
+
+
+        Vector3 mousePos = Camera.main.ScreenToWorldPoint(
+            new Vector3(mouseXY.x,
+            mouseXY.y, Camera.main.transform.position.y));
+
+        Vector3 direction = (mousePos - transform.position).normalized;
+
+        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+        projectile.transform.LookAt(mousePos);
+
+        projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileSpeed;
 
         
+
 
     }
     
