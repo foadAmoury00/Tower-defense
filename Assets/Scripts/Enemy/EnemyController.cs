@@ -363,13 +363,13 @@ public class EnemyAI : MonoBehaviour
     public AudioSource audioSource;
     public AudioClip spawnSound, attackSound;
 
-    [Header("=== CONVERT TO ALLY (on death) ===")]
-    public string allyLayerName = "Ally";                 // make sure this layer exists
-    public GameObject defenderProjectilePrefab;          // your projectile prefab
-    public float defenderAttackRange = 10f;
-    public float defenderTimeBetweenShots = 1.0f;
-    public float defenderProjectileSpeed = 20f;
-    public LayerMask defenderEnemyMask;                  // set to "Enemy" in Inspector
+    [Header("=== DEFENDER MELEE (on conversion) ===")]
+    public string allyLayerName = "Ally";
+    public string enemyLayerName = "Enemy";
+    public float defenderRadius = 3.5f;
+    public float defenderDamage = 10f;
+    public float defenderHitInterval = 0.6f;
+    public LayerMask defenderEnemyMask;   // set to Enemy in Inspector (or leave empty)
 
     // --- internals ---
     private NavMeshAgent agent;
@@ -471,7 +471,7 @@ public class EnemyAI : MonoBehaviour
 
         if (converted) return;
 
-        // Check recruit cap
+        // Recruit-cap check
         bool canRecruit = RecruitManager.Instance == null || RecruitManager.Instance.TryReserveSlot();
         if (!canRecruit)
         {
@@ -480,7 +480,6 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        // Convert THIS object into a static ally turret
         converted = true;
 
         // Stop Nav/AI
@@ -491,50 +490,42 @@ public class EnemyAI : MonoBehaviour
             agent.enabled = false;
         }
 
-        // Switch layer to Ally
+        // Switch to Ally layer
         int allyLayer = LayerMask.NameToLayer(allyLayerName);
         if (allyLayer >= 0) gameObject.layer = allyLayer;
         gameObject.tag = "Untagged";
 
-        // Optional: stop anim at idle
-        ChangeAnimation(ENEMY_IDLE);
-
-        // Freeze any rigidbody motion
-        if (TryGetComponent<Rigidbody>(out var rb))
+        // Stop root motion & idle pose
+        if (animator)
         {
-            rb.isKinematic = true;
-            rb.linearVelocity = Vector3.zero;
-            rb.angularVelocity = Vector3.zero;
+            animator.applyRootMotion = false;
+            ChangeAnimation(ENEMY_IDLE);
         }
+
+        // Make it a standing, non-sinking turret
+        EnsureStandingComponents();
+        SnapToGround();
 
         // Make ally indestructible (optional)
         if (health) health.enabled = false;
 
-        // Add/Configure AutoAttack so this same object becomes a turret
-        var aa = GetComponent<AutoAttack>();
-        if (!aa) aa = gameObject.AddComponent<AutoAttack>();
+        // --- attach/configure melee AOE defender (no projectiles) ---
+        var melee = GetComponent<DefenderMelee>();
+        if (!melee) melee = gameObject.AddComponent<DefenderMelee>();
 
-        // 1) Ensure projectilePrefab exists (fallback to any shooter in scene if not set)
-        if (defenderProjectilePrefab == null)
-        {
-            var anyShooter = FindFirstObjectByType<AutoAttack>();
-            if (anyShooter != null) defenderProjectilePrefab = anyShooter.projectilePrefab;
-        }
-        aa.projectilePrefab = defenderProjectilePrefab;
+        int mask = (defenderEnemyMask.value != 0)
+            ? defenderEnemyMask.value
+            : LayerMask.GetMask(enemyLayerName);
 
-        // 2) Target only the Enemy layer: prefer defenderEnemyMask if set; else default to "Enemy"
-        aa.enemyMask = (defenderEnemyMask.value != 0) ? defenderEnemyMask : LayerMask.GetMask("Enemy");
+        melee.enemyMask = mask;
+        melee.radius = defenderRadius;
+        melee.damagePerHit = defenderDamage;
+        melee.timeBetweenHits = defenderHitInterval;
 
-        // 3) Tunables
-        aa.attackRange = defenderAttackRange;
-        aa.timeBetweenShots = defenderTimeBetweenShots;
-        aa.projectileSpeed = defenderProjectileSpeed;
-        aa.fireOnClick = false; // auto-fire for turret
-
-        // Disable this EnemyAI script
+        // Disable this AI script (converted)
         enabled = false;
 
-        Debug.Log("⚔️ Enemy converted into ally turret (in place).");
+        Debug.Log("⚔️ Enemy converted into ally melee defender (AOE).");
     }
 
     // --- helpers ---
@@ -559,5 +550,56 @@ public class EnemyAI : MonoBehaviour
     {
         if (health != null) health.TakeDamage(999999f);
         else Destroy(gameObject);
+    }
+    private void EnsureStandingComponents()
+    {
+        // Rigidbody: make it stay put and not sink
+        if (!TryGetComponent<Rigidbody>(out var rb))
+            rb = gameObject.AddComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.useGravity = false;
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+
+        // Collider: ensure there is a solid collider so it rests on ground
+        var col = GetComponent<Collider>();
+        if (col == null)
+        {
+            var cap = gameObject.AddComponent<CapsuleCollider>();
+            cap.height = 2f;
+            cap.radius = 0.4f;
+            cap.center = new Vector3(0f, 1f, 0f);
+            cap.isTrigger = false;
+        }
+        else
+        {
+            col.isTrigger = false; // must be solid to stand on ground
+        }
+
+        // NavMeshObstacle so other agents avoid this ally
+        var obs = GetComponent<NavMeshObstacle>();
+        if (obs == null) obs = gameObject.AddComponent<NavMeshObstacle>();
+        obs.shape = NavMeshObstacleShape.Capsule;
+        obs.carving = true;
+
+        // Optional: make ally indestructible (we already converted it)
+        if (health) health.enabled = false;
+    }
+
+    private void SnapToGround()
+    {
+        // First try a physics ray down
+        Vector3 start = transform.position + Vector3.up * 3f;
+        if (Physics.Raycast(start, Vector3.down, out var hit, 10f, ~0, QueryTriggerInteraction.Ignore))
+        {
+            transform.position = new Vector3(transform.position.x, hit.point.y, transform.position.z);
+            return;
+        }
+
+        // Fallback: try NavMesh position (if present)
+        if (NavMesh.SamplePosition(transform.position, out var nHit, 2f, NavMesh.AllAreas))
+        {
+            transform.position = nHit.position;
+        }
     }
 }

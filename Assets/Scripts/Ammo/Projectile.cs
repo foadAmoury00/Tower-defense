@@ -42,13 +42,12 @@ public class Projectile : MonoBehaviour
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
         {
-            Debug.Log("Hit");
-            var healthComponent = other.GetComponentInParent<HealthComponent>(); // <- change here
+            var healthComponent = other.GetComponentInParent<HealthComponent>(); // works if collider is on child
             if (healthComponent != null)
             {
                 healthComponent.TakeDamage(10);
             }
-            Destroy(gameObject);
+            Destroy(gameObject); // destroy after applying damage
         }
     }
 }

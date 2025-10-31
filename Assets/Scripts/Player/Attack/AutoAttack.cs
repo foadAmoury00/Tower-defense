@@ -108,16 +108,61 @@ public class AutoAttack : MonoBehaviour
         }
     }
 
-    void FindTarget()
+    //void FindTarget()
+    //{
+    //    // if you don�t set enemyMask in the Inspector, this falls back to layer name "Enemy"
+    //    int enemyLayer = LayerMask.NameToLayer("Enemy");
+    //    int mask = enemyMask.value != 0 ? enemyMask.value : LayerMask.GetMask("Enemy");
+
+    //    Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, mask);
+    //    currentTarget = (hits.Length > 0) ? hits[0].transform : null;
+    //}
+
+    private void FindTarget()
     {
-        // if you don�t set enemyMask in the Inspector, this falls back to layer name "Enemy"
-        int enemyLayer = LayerMask.NameToLayer("Enemy");
-        int mask = enemyMask.value != 0 ? enemyMask.value : LayerMask.GetMask("Enemy");
+        // Use provided mask if set, otherwise default to "Enemy"
+        int mask = (enemyMask.value != 0) ? enemyMask.value : LayerMask.GetMask("Enemy");
 
-        Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, mask);
-        currentTarget = (hits.Length > 0) ? hits[0].transform : null;
+        // Keep current target if it's still valid and in range
+        if (currentTarget != null)
+        {
+            // destroyed objects compare == null in Unity
+            if (currentTarget == null ||
+                ((currentTarget.position - transform.position).sqrMagnitude > attackRange * attackRange) ||
+                (currentTarget.gameObject.layer != LayerMask.NameToLayer("Enemy")) ||
+                (currentTarget.GetComponentInParent<HealthComponent>() == null))
+            {
+                currentTarget = null; // force reacquire below
+            }
+        }
+
+        if (currentTarget == null)
+        {
+            // Reacquire: prefer closest valid enemy with a HealthComponent
+            Collider[] hits = Physics.OverlapSphere(transform.position, attackRange, mask);
+            float bestSqr = float.PositiveInfinity;
+            Transform best = null;
+
+            for (int i = 0; i < hits.Length; i++)
+            {
+                Transform t = hits[i].transform;
+                if (t == null) continue;
+
+                // must actually be on Enemy layer and have health
+                if (t.gameObject.layer != LayerMask.NameToLayer("Enemy")) continue;
+                if (t.GetComponentInParent<HealthComponent>() == null) continue;
+
+                float sqr = (t.position - transform.position).sqrMagnitude;
+                if (sqr < bestSqr)
+                {
+                    bestSqr = sqr;
+                    best = t;
+                }
+            }
+
+            currentTarget = best;
+        }
     }
-
     void ShootTarget()
     {
         if (!projectilePrefab || currentTarget == null) return;
