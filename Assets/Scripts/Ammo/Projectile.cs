@@ -5,6 +5,8 @@ public class Projectile : MonoBehaviour
 {
 
     HealthComponent healthComponent;
+    [SerializeField] float projectileDamage = 10f;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
@@ -15,7 +17,7 @@ public class Projectile : MonoBehaviour
 
             if (healthComponent != null)
             {
-                healthComponent.TakeDamage(10);
+                healthComponent.TakeDamage(projectileDamage);
             }
         }
 

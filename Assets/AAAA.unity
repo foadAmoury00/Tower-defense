@@ -393,7 +393,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!65 &1459949459
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -566,9 +566,45 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cylinder
       objectReference: {fileID: 0}
+    - target: {fileID: 3721196944627491106, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: m_TagString
+      value: Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 4780319800429653972, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: m_Height
+      value: 2.5939507
+      objectReference: {fileID: 0}
+    - target: {fileID: 4780319800429653972, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: m_Radius
+      value: 1.2969754
+      objectReference: {fileID: 0}
+    - target: {fileID: 4780319800429653972, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: m_Center.x
+      value: -0.34198785
+      objectReference: {fileID: 0}
+    - target: {fileID: 4780319800429653972, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: m_Center.y
+      value: -0.03666711
+      objectReference: {fileID: 0}
+    - target: {fileID: 4780319800429653972, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: m_Center.z
+      value: -0.45498705
+      objectReference: {fileID: 0}
+    - target: {fileID: 4780319800429653972, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942156103988208951, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 5942156103988208951, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: currentHealth
+      value: 100
+      objectReference: {fileID: 0}
     - target: {fileID: 7983598341182393252, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 10.71
+      value: 6.97
       objectReference: {fileID: 0}
     - target: {fileID: 7983598341182393252, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
       propertyPath: m_LocalPosition.y
@@ -664,9 +700,17 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 5511237002180374833, guid: 039d48c509b7a9644ab2b623c1504b94, type: 3}
+      propertyPath: maxHealth
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5511237002180374833, guid: 039d48c509b7a9644ab2b623c1504b94, type: 3}
       propertyPath: targetTower
       value: 
       objectReference: {fileID: 1877592911}
+    - target: {fileID: 5511237002180374833, guid: 039d48c509b7a9644ab2b623c1504b94, type: 3}
+      propertyPath: currentHealth
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -684,6 +728,10 @@ PrefabInstance:
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 2082488823}
+    - target: {fileID: 1992710154162823905, guid: 003ef4ffd8f1780449d0963b24ad3a89, type: 3}
+      propertyPath: targetTower
+      value: 
+      objectReference: {fileID: 1877592911}
     - target: {fileID: 6705298723006102883, guid: 003ef4ffd8f1780449d0963b24ad3a89, type: 3}
       propertyPath: m_Name
       value: WaveManager
