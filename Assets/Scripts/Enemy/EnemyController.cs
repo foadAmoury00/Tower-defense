@@ -475,8 +475,7 @@ public class EnemyAI : MonoBehaviour
         bool canRecruit = RecruitManager.Instance == null || RecruitManager.Instance.TryReserveSlot();
         if (!canRecruit)
         {
-            // allow destroy since we can't convert
-            health.SetDestroyOnDeath(true);
+            if (health != null) health.SetDestroyOnDeath(true);
             Destroy(gameObject);
             return;
         }
@@ -497,7 +496,7 @@ public class EnemyAI : MonoBehaviour
         if (allyLayer >= 0) gameObject.layer = allyLayer;
         gameObject.tag = "Untagged";
 
-        // Stop anim at idle
+        // Optional: stop anim at idle
         ChangeAnimation(ENEMY_IDLE);
 
         // Freeze any rigidbody motion
@@ -508,19 +507,29 @@ public class EnemyAI : MonoBehaviour
             rb.angularVelocity = Vector3.zero;
         }
 
-        // Make ally indestructible (optional). Disable further damage handling.
+        // Make ally indestructible (optional)
         if (health) health.enabled = false;
 
-        // Add/Configure AutoAttack on this same object
+        // Add/Configure AutoAttack so this same object becomes a turret
         var aa = GetComponent<AutoAttack>();
         if (!aa) aa = gameObject.AddComponent<AutoAttack>();
 
+        // 1) Ensure projectilePrefab exists (fallback to any shooter in scene if not set)
+        if (defenderProjectilePrefab == null)
+        {
+            var anyShooter = FindFirstObjectByType<AutoAttack>();
+            if (anyShooter != null) defenderProjectilePrefab = anyShooter.projectilePrefab;
+        }
         aa.projectilePrefab = defenderProjectilePrefab;
+
+        // 2) Target only the Enemy layer: prefer defenderEnemyMask if set; else default to "Enemy"
+        aa.enemyMask = (defenderEnemyMask.value != 0) ? defenderEnemyMask : LayerMask.GetMask("Enemy");
+
+        // 3) Tunables
         aa.attackRange = defenderAttackRange;
         aa.timeBetweenShots = defenderTimeBetweenShots;
         aa.projectileSpeed = defenderProjectileSpeed;
-        aa.fireOnClick = false; // turret fires automatically
-        aa.enemyMask = (defenderEnemyMask.value != 0) ? defenderEnemyMask : LayerMask.GetMask("Enemy");
+        aa.fireOnClick = false; // auto-fire for turret
 
         // Disable this EnemyAI script
         enabled = false;
