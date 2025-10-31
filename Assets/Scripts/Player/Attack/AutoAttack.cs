@@ -9,7 +9,7 @@ public class AutoAttack : MonoBehaviour
  
     public GameObject projectilePrefab;
     public float attackRange = 10f;
-    public float timeBetweenShots = 0.5f;
+    public float timeBetweenShots = 2f;
 
     private float shootTimer;
     private Transform currentTarget;

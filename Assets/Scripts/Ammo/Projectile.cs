@@ -10,5 +10,8 @@ public class Projectile : MonoBehaviour
             Debug.Log("Hit");
             Destroy(gameObject);
         }
+
     }
+
+ 
 }
