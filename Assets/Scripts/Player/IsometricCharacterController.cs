@@ -81,7 +81,6 @@ public class IsometricCharacterController : MonoBehaviour
     [SerializeField]
    
     private Vector3 velocity;
-    private Vector3 velocityAfterGlideStart;
     private float additionalVelocity;
     private Vector3 prevVelocity;
 
@@ -90,9 +89,6 @@ public class IsometricCharacterController : MonoBehaviour
     private Vector3 inputVectorMove;
     private Vector3 inputVelocityMove;
 
-   
-
-  
     private float currentDampingMove;
     private float currentDampingRot;
 
