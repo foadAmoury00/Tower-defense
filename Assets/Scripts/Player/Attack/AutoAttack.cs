@@ -63,6 +63,3 @@ public class AutoAttack : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackRange);
     }
 }
-
-    
-

@@ -4,6 +4,9 @@ using System.Collections;
 
 public class EnemyAI : MonoBehaviour
 {
+    [SerializeField] private WaveManager waveManager; // optional drag in Inspector
+    private HealthComponent health;
+
     [Header("=== NAVMESH SETTINGS ===")]
     private NavMeshAgent agent;
     public Transform targetTower;
@@ -84,6 +87,12 @@ public class EnemyAI : MonoBehaviour
         ChangeAnimation(ENEMY_WALK);
 
         Debug.Log("Enemy initialized - Speed: " + agent.speed);
+
+        health = GetComponent<HealthComponent>();
+        if (health != null)
+        {
+            health.OnDeath += HandleDeath;
+        }
     }
 
     private void Update()
@@ -186,7 +195,36 @@ public class EnemyAI : MonoBehaviour
         Debug.Log("Enemy died!");
 
         // تدمير الكائن بعد 3 ثواني
-        Destroy(gameObject, 3f);
+        //Destroy(gameObject, 3f);
+    }
+
+    private void HandleDeath()
+    {
+        if (isDead) return;
+        isDead = true;
+
+        // Try to convert to ally first
+        bool recruited = false;
+        if (RecruitManager.Instance != null)
+        {
+            recruited = RecruitManager.Instance.TryRecruitFromEnemy(this);
+        }
+
+        // VFX/SFX (optional)
+        ChangeAnimation(ENEMY_DEATH);
+        PlaySound(deathSound);
+        if (deathEffect != null) deathEffect.Play();
+
+        // Inform wave system
+        if (waveManager != null) waveManager.OnEnemyDeath();
+        else
+        {
+            var wm = FindFirstObjectByType<WaveManager>();
+            if (wm) wm.OnEnemyDeath();
+        }
+
+        // Let HealthComponent finish its Destroy(gameObject)
+        // (it’s already called Destroy in HealthComponent after invoking OnDeath)
     }
 
     void OnTriggerEnter(Collider other)
