@@ -140,6 +140,7 @@ public class EnemyAI : MonoBehaviour
 
     void AttackTarget()
     {
+        Debug.Log("Enemy attacked tower!"); 
         // تشغيل انيميشن الهجوم
         ChangeAnimation(ENEMY_ATTACK);
 
@@ -147,13 +148,17 @@ public class EnemyAI : MonoBehaviour
         PlaySound(attackSound);
 
         // إلحاق الضرر بالبرج
-        TowerHealth towerHealth = targetTower.GetComponent<TowerHealth>();
+        HealthComponent towerHealth = targetTower.GetComponent<HealthComponent>();
+
         if (towerHealth != null)
         {
             towerHealth.TakeDamage(attackDamage);
             Debug.Log("Enemy attacked tower for " + attackDamage + " damage!");
         }
+
+
     }
+
 
     public void Die()
     {

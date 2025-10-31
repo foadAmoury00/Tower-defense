@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 619666760352122279}
   - component: {fileID: 5511237002180374833}
   - component: {fileID: 5247867304742028738}
+  - component: {fileID: 324920153737766861}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -128,24 +129,22 @@ MonoBehaviour:
   walkSpeed: 3.5
   runSpeed: 5
   rotationSpeed: 5
-  maxHealth: 100
-  currentHealth: 0
-  healthBar: {fileID: 0}
-  isDead: 0
   attackRange: 4.62
   detectionRange: 19.57
   attackDamage: 15
   attackRate: 1
+  nextAttackTime: 0
+  enableMerge: 1
+  mergeDamageBonus: 10
+  mergeSizeMultiplier: 1.2
+  mergeEffect: {fileID: 0}
   animator: {fileID: 0}
   audioSource: {fileID: 0}
   spawnSound: {fileID: 0}
   attackSound: {fileID: 0}
-  damageSound: {fileID: 0}
   deathSound: {fileID: 0}
   walkSound: {fileID: 0}
-  damageEffect: {fileID: 0}
   deathEffect: {fileID: 0}
-  healthBarCanvas: {fileID: 0}
 --- !u!195 &5247867304742028738
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -168,3 +167,16 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &324920153737766861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4548481439670330749}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0346aea011542924d848e54d37a13357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
