@@ -5,6 +5,8 @@ public class Projectile : MonoBehaviour
 {
 
     HealthComponent healthComponent;
+    [SerializeField] float projectileDamage = 10f;
+
 
     float lifeTime = 5f;
 
@@ -24,6 +26,7 @@ public class Projectile : MonoBehaviour
 
             if (healthComponent != null)
             {
+                healthComponent.TakeDamage(projectileDamage);
                 healthComponent.TakeDamage(projectileDamage);
             }
         }

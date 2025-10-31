@@ -151,3 +151,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   layerName: Enemy
   projectileDamage: 10
+  projectileDamage: 40
