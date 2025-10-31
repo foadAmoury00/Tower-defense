@@ -17,7 +17,6 @@ public class WaveManager : MonoBehaviour
     [Header("Wave Settings")]
     public Wave[] waves;
     public Transform spawnPoint;
-    public Transform targetTower;
 
     private int currentWaveIndex = 0;
     private bool isSpawning = false;
@@ -69,11 +68,7 @@ public class WaveManager : MonoBehaviour
         GameObject enemy = Instantiate(enemyPrefab, spawnPoint.position, spawnPoint.rotation);
 
         // ÊÚííä ÇáåÏİ ááÚÏæ
-        EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
-        if (enemyAI != null && targetTower != null)
-        {
-            enemyAI.targetTower = targetTower;
-        }
+        
     }
 
     // ÇÓÊÏÚ åĞå ÇáÏÇáÉ ÚäÏãÇ íãæÊ ÚÏæ

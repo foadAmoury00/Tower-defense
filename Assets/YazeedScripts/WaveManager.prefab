@@ -51,4 +51,3 @@ MonoBehaviour:
     spawnRate: 0.5
     timeBeforeNextWave: 10
   spawnPoint: {fileID: 0}
-  targetTower: {fileID: 0}
