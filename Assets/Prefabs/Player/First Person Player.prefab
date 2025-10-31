@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 1253986007546086746}
   - component: {fileID: 5520751305636492846}
   - component: {fileID: 7509153725840280751}
+  - component: {fileID: 4194493951917493642}
   m_Layer: 3
   m_Name: First Person Player
   m_TagString: Player
@@ -166,8 +167,8 @@ MonoBehaviour:
   playerInput: {fileID: 359722446307634048}
   speed: 10
   turnSpeed: 50
-  turnRotationSpeed: 10
-  tiltAngle: 10
+  turnRotationSpeed: 100
+  tiltAngle: 0
   gravity: 9.8
   terminalVelocity: 30
   coyoteTime: 0.1
@@ -308,6 +309,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f161ce5aec1bcef4cb5953a1e2f89794, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4194493951917493642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2570353529489383373}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0346aea011542924d848e54d37a13357, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!1 &3378791450460939291
 GameObject:
   m_ObjectHideFlags: 0
