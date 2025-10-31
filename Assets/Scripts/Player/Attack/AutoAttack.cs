@@ -50,6 +50,11 @@ public class AutoAttack : MonoBehaviour
 
         projectile.GetComponent<Rigidbody>().linearVelocity = (currentTarget.position - transform.position).normalized * projectileSpeed;
     }
+    // making the enemy script invoke this method when in range
+    void AttackEnemy()
+    {
+        Debug.Log("Attacking Enemy");
+    }
 }
 
     
