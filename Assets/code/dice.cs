@@ -1,10 +1,10 @@
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 using System.Collections;
 
-public class dice : MonoBehaviour
+public class Dice : MonoBehaviour
 {
-    public Transform diceTransform;
+    public Animator diceAnimator;
     public TMP_Text resultText;
     public float addedTime = 15f;
 
@@ -13,6 +13,7 @@ public class dice : MonoBehaviour
     void Start()
     {
         resultText.text = "Press R to roll the dice!";
+        diceAnimator.Play("Idle");
     }
 
     void Update()
@@ -34,22 +35,11 @@ public class dice : MonoBehaviour
         isRolling = true;
         resultText.text = "Rolling...";
 
-        Quaternion startRot = diceTransform.rotation;
-        Quaternion randomRot = Random.rotation;
+        int result = Random.Range(1, 7);
+        diceAnimator.Play(result.ToString());
 
-        float elapsed = 0f;
-        float duration = 3f;
+        yield return new WaitForSeconds(GetCurrentAnimationLength());
 
-        while (elapsed < duration)
-        {
-            diceTransform.rotation = Quaternion.Slerp(startRot, randomRot, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-
-        diceTransform.rotation = randomRot;
-
-        int result = DetectNumber();
         resultText.text = "You rolled: " + result;
 
         if (addedTime > 0)
@@ -59,21 +49,13 @@ public class dice : MonoBehaviour
                 timer.AddTime(addedTime);
         }
 
+        diceAnimator.Play("Idle");
         isRolling = false;
     }
 
-    int DetectNumber()
+    private float GetCurrentAnimationLength()
     {
-        Vector3 up = diceTransform.up;
-        float x = Vector3.Dot(Vector3.up, diceTransform.right);
-        float y = Vector3.Dot(Vector3.up, diceTransform.up);
-        float z = Vector3.Dot(Vector3.up, diceTransform.forward);
-
-        if (Mathf.Abs(x) > Mathf.Abs(y) && Mathf.Abs(x) > Mathf.Abs(z))
-            return x > 0 ? 3 : 4;
-        else if (Mathf.Abs(y) > Mathf.Abs(x) && Mathf.Abs(y) > Mathf.Abs(z))
-            return y > 0 ? 1 : 6;
-        else
-            return z > 0 ? 2 : 5;
+        AnimatorStateInfo state = diceAnimator.GetCurrentAnimatorStateInfo(0);
+        return state.length;
     }
 }
