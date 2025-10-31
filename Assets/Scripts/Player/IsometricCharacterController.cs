@@ -26,11 +26,11 @@ public class IsometricCharacterController : MonoBehaviour
     private float speed = 12.0f;
 
     [SerializeField]
-    [Range(0.0f, 10.0f)]
+    [Range(0.0f, 500.0f)]
     private float turnSpeed = 10.0f;
 
     [SerializeField]
-    [Range(0.0f, 10.0f)]
+    [Range(0.0f, 500.0f)]
     private float turnRotationSpeed = 45.0f;
 
     [SerializeField]

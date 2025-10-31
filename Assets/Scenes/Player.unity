@@ -137,7 +137,7 @@ PrefabInstance:
       objectReference: {fileID: 1619713011}
     - target: {fileID: 1253986007546086746, guid: 53b851a0c597f6c49b5182b579c33ba6, type: 3}
       propertyPath: mask.m_Bits
-      value: 0
+      value: 67108864
       objectReference: {fileID: 0}
     - target: {fileID: 2570353529489383373, guid: 53b851a0c597f6c49b5182b579c33ba6, type: 3}
       propertyPath: m_Name
@@ -182,6 +182,14 @@ PrefabInstance:
     - target: {fileID: 7799887822645630705, guid: 53b851a0c597f6c49b5182b579c33ba6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928962664831828262, guid: 53b851a0c597f6c49b5182b579c33ba6, type: 3}
+      propertyPath: gravity
+      value: 9.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 7928962664831828262, guid: 53b851a0c597f6c49b5182b579c33ba6, type: 3}
+      propertyPath: turnSpeed
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -533,7 +541,7 @@ GameObject:
   - component: {fileID: 1767851954}
   - component: {fileID: 1767851953}
   - component: {fileID: 1767851952}
-  m_Layer: 0
+  m_Layer: 26
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,9 +631,9 @@ Transform:
   m_GameObject: {fileID: 1767851951}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 2.94}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalPosition: {x: 8.49, y: 1.13, z: -0.6}
+  m_LocalScale: {x: 3, y: 3, z: 3}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 432880857}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
