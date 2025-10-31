@@ -114,28 +114,19 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Fire"",
                     ""type"": ""Button"",
                     ""id"": ""bbdef554-d882-49bf-8602-e745545cde93"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Jump"",
-                    ""type"": ""Button"",
-                    ""id"": ""42165d94-5036-4049-b2fe-dc72d356b7f5"",
-                    ""expectedControlType"": ""Button"",
+                    ""name"": ""MouseMovement"",
+                    ""type"": ""Value"",
+                    ""id"": ""6aac687d-7a92-4bb8-85a1-910db052857a"",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""Glide"",
-                    ""type"": ""Button"",
-                    ""id"": ""f26a4b93-db37-417c-93f4-98e224d0f111"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -361,45 +352,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""410d913d-6c72-433e-88b5-2d1e4dc93fb8"",
-                    ""path"": ""<Keyboard>/space"",
+                    ""id"": ""838d309c-85d7-4d12-bac3-231962790963"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d7e7a152-9e25-4246-a4d9-654dc6eb61fd"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Jump"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c9fd3e1e-9995-4267-b5a5-c491cea14738"",
-                    ""path"": ""<Keyboard>/space"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Glide"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""874af227-863b-456c-9306-66536ef6a3c1"",
-                    ""path"": ""<Gamepad>/buttonSouth"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Gamepad"",
-                    ""action"": ""Glide"",
+                    ""groups"": """",
+                    ""action"": ""MouseMovement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -990,8 +948,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Look = m_Player.FindAction("Look", throwIfNotFound: true);
         m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
-        m_Player_Jump = m_Player.FindAction("Jump", throwIfNotFound: true);
-        m_Player_Glide = m_Player.FindAction("Glide", throwIfNotFound: true);
+        m_Player_MouseMovement = m_Player.FindAction("MouseMovement", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1088,8 +1045,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Look;
     private readonly InputAction m_Player_Fire;
-    private readonly InputAction m_Player_Jump;
-    private readonly InputAction m_Player_Glide;
+    private readonly InputAction m_Player_MouseMovement;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1114,13 +1070,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @Fire => m_Wrapper.m_Player_Fire;
         /// <summary>
-        /// Provides access to the underlying input action "Player/Jump".
+        /// Provides access to the underlying input action "Player/MouseMovement".
         /// </summary>
-        public InputAction @Jump => m_Wrapper.m_Player_Jump;
-        /// <summary>
-        /// Provides access to the underlying input action "Player/Glide".
-        /// </summary>
-        public InputAction @Glide => m_Wrapper.m_Player_Glide;
+        public InputAction @MouseMovement => m_Wrapper.m_Player_MouseMovement;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1156,12 +1108,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started += instance.OnFire;
             @Fire.performed += instance.OnFire;
             @Fire.canceled += instance.OnFire;
-            @Jump.started += instance.OnJump;
-            @Jump.performed += instance.OnJump;
-            @Jump.canceled += instance.OnJump;
-            @Glide.started += instance.OnGlide;
-            @Glide.performed += instance.OnGlide;
-            @Glide.canceled += instance.OnGlide;
+            @MouseMovement.started += instance.OnMouseMovement;
+            @MouseMovement.performed += instance.OnMouseMovement;
+            @MouseMovement.canceled += instance.OnMouseMovement;
         }
 
         /// <summary>
@@ -1182,12 +1131,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @Fire.started -= instance.OnFire;
             @Fire.performed -= instance.OnFire;
             @Fire.canceled -= instance.OnFire;
-            @Jump.started -= instance.OnJump;
-            @Jump.performed -= instance.OnJump;
-            @Jump.canceled -= instance.OnJump;
-            @Glide.started -= instance.OnGlide;
-            @Glide.performed -= instance.OnGlide;
-            @Glide.canceled -= instance.OnGlide;
+            @MouseMovement.started -= instance.OnMouseMovement;
+            @MouseMovement.performed -= instance.OnMouseMovement;
+            @MouseMovement.canceled -= instance.OnMouseMovement;
         }
 
         /// <summary>
@@ -1510,19 +1456,12 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnFire(InputAction.CallbackContext context);
         /// <summary>
-        /// Method invoked when associated input action "Jump" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// Method invoked when associated input action "MouseMovement" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
         /// </summary>
         /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnJump(InputAction.CallbackContext context);
-        /// <summary>
-        /// Method invoked when associated input action "Glide" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-        /// </summary>
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-        void OnGlide(InputAction.CallbackContext context);
+        void OnMouseMovement(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

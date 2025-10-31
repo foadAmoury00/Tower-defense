@@ -5,6 +5,13 @@ public class Projectile : MonoBehaviour
 {
 
     HealthComponent healthComponent;
+
+    float lifeTime = 5f;
+
+    [SerializeField]
+    
+    string layerName = "Enemy";
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
@@ -17,6 +24,10 @@ public class Projectile : MonoBehaviour
             {
                 healthComponent.TakeDamage(10);
             }
+        }
+        else
+        {
+            Destroy(gameObject,lifeTime);
         }
 
     }

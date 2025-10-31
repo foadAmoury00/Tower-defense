@@ -28,10 +28,19 @@
                     "name": "Fire",
                     "type": "Button",
                     "id": "bbdef554-d882-49bf-8602-e745545cde93",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "MouseMovement",
+                    "type": "Value",
+                    "id": "6aac687d-7a92-4bb8-85a1-910db052857a",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -252,6 +261,17 @@
                     "processors": "",
                     "groups": "XR",
                     "action": "Fire",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "838d309c-85d7-4d12-bac3-231962790963",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
