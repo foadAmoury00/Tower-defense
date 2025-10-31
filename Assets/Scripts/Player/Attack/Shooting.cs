@@ -50,6 +50,8 @@ public class Shooting : MonoBehaviour
 
         projectile.transform.LookAt(mousePos);
 
+        projectile.transform.position = new Vector3(projectile.transform.position.x, transform.position.y, projectile.transform.position.z);
+
         projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileSpeed;
 
         
