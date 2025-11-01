@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Dice_UI : MonoBehaviour
@@ -87,8 +88,9 @@ public class Dice_UI : MonoBehaviour
         isFading = true;
     }
 
-    private void FadeLabelToVisible()
+    private IEnumerator FadeLabelToVisible()
     {
+        yield return new WaitForSeconds(fadeDuration);
         targetAlpha = 1f;
         isFading = true;
     }
@@ -131,7 +133,7 @@ public class Dice_UI : MonoBehaviour
         isRolling = false;
 
         // Fade label back to visible
-        FadeLabelToVisible();
+        StartCoroutine( FadeLabelToVisible());
 
         Debug.Log("Dice rolling completed! Label fading back in.");
     }
