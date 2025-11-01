@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6820310458004581987}
   - component: {fileID: 7980163620168894482}
   m_Layer: 26
-  m_Name: Cylinder
+  m_Name: Castle
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

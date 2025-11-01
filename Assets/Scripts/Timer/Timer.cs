@@ -26,3 +26,4 @@ public class Timer : MonoBehaviour
         timeLeft += seconds;
     }
 }
+
