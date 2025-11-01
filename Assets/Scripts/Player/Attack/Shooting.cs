@@ -34,39 +34,38 @@ public class Shooting : MonoBehaviour
 
     void Fire()
     {
-       
-       Debug.Log("Firing"); 
 
         Vector2 mouseXY = playerInputActions.Player.MouseMovement.ReadValue<Vector2>();
 
 
-        Vector3 mousePos = Camera.main.ScreenToWorldPoint(
-            new Vector3(mouseXY.x,
-            mouseXY.y, Camera.main.transform.position.y));
+        Ray ray = Camera.main.ScreenPointToRay(new Vector3(mouseXY.x, mouseXY.y, 0));
+        RaycastHit hit;
 
-        Vector3 direction = (mousePos - transform.position).normalized;
+        if (Physics.Raycast(ray, out hit, Mathf.Infinity))
+        {
+            Vector3 mousePos = hit.point;
+            // Keep the projectile on the same Y level as the player, useful for 2.5D top-down
+            mousePos.y = transform.position.y;
 
-        GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            Vector3 direction = (mousePos - transform.position).normalized;
 
-        projectile.transform.LookAt(mousePos);
-
-        projectile.transform.position = new Vector3(projectile.transform.position.x, transform.position.y, projectile.transform.position.z);
-
-        projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileSpeed;
-
-        
+            // ... rest of your firing code
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            projectile.transform.LookAt(mousePos); // Use LookAt the target point
+            projectile.GetComponent<Rigidbody>().linearVelocity = direction * projectileSpeed;
+        }
 
 
     }
-    
 
 
 
 
 
-  
 
-   
-  
-  
+
+
+
+
+
 }

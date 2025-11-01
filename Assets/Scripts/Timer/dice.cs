@@ -10,6 +10,8 @@ public class Dice : MonoBehaviour
 
     private bool isRolling = false;
 
+    public Timer timer;
+
     void Start()
     {
         resultText.text = "Press R to roll the dice!";
@@ -44,7 +46,7 @@ public class Dice : MonoBehaviour
 
         if (addedTime > 0)
         {
-            Timer timer = FindObjectOfType<Timer>();
+            
             if (timer != null)
                 timer.AddTime(addedTime);
         }

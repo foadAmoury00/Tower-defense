@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-public class Temp : MonoBehaviour
+public class WaveManager
+    : MonoBehaviour
 {
     [Header("Spawn Settings")]
     public Transform[] spawnPoints;
