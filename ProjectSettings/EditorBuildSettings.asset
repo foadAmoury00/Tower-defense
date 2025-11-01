@@ -6,8 +6,8 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/Player_Archived.unity
-    guid: abef61a914aa03544aa6e9c5009418ac
+    path: Assets/Scenes/WaveAndDice.unity
+    guid: 52a9062f06c8b404dbdb8988322c3d3f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: f07995fc54ede4e468cc466250225b4f, type: 3}
   m_UseUCBPForAssetBundles: 0
