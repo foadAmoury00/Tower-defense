@@ -1,8 +1,10 @@
 using UnityEngine;
 using TMPro;
+using System;
 
 public class Timer : MonoBehaviour
 {
+    public Timer_UI timerUI;
     public TMP_Text timerText;
     public float timeLeft = 60f;
     private bool isRunning = true;
@@ -18,14 +20,15 @@ public class Timer : MonoBehaviour
             isRunning = false;
         }
 
-        timerText.text = "Time: " + Mathf.Ceil(timeLeft);
+        timerUI.UpdateTimer(Mathf.Ceil(timeLeft), 60f);
     }
 
- 
+
 
     public void AddTime(float seconds)
     {
         timeLeft += seconds;
+        timerUI.ExtendTime(Mathf.Ceil(timeLeft), 60f);
     }
 }
 

@@ -678,7 +678,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.33333334
+  m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: 73c2d46d8c05656489e225f03eb3a7ce, type: 2}
   m_BuildHeightMesh: 0
@@ -1367,6 +1367,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1c3e8e23554ac44ba3fcaf4bc0de00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timerUI: {fileID: 978011852}
   timerText: {fileID: 1303362822}
   timeLeft: 60
 --- !u!1 &653855304
@@ -2734,7 +2735,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1303362821
 RectTransform:
   m_ObjectHideFlags: 0
