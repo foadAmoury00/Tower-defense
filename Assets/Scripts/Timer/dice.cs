@@ -12,8 +12,11 @@ public class Dice : MonoBehaviour
 
     public Timer timer;
 
+    int noRepeating;
+
     void Start()
     {
+        noRepeating = -1;
         resultText.text = "Press R to roll the dice!";
         diceAnimator.Play("Idle");
     }

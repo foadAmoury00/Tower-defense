@@ -41,6 +41,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "RollDice",
+                    "type": "Button",
+                    "id": "73a7c21a-1193-4673-9739-3ecebe752658",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -274,6 +283,17 @@
                     "action": "MouseMovement",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "267562da-1e14-4c8d-aa41-cbbc70004d2c",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "RollDice",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -294,7 +314,7 @@
                     "name": "Submit",
                     "type": "Button",
                     "id": "cfae60c7-8be0-41bf-8b64-b8cbc034e889",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -303,7 +323,7 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "c42f0110-693b-42ea-8d00-7703421ebfc8",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
