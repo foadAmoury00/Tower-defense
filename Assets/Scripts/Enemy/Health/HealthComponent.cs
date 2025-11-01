@@ -61,6 +61,7 @@ using UnityEngine;
 
 public class HealthComponent : MonoBehaviour, IDamageable
 {
+    public CastleBar_UI castleBarUI;  // Reference to CastleBar_UI
     private float currentHealth;
     [SerializeField] float maxHealth;
     private bool isDead;
@@ -97,11 +98,12 @@ public class HealthComponent : MonoBehaviour, IDamageable
         if (isDead) return;
 
         currentHealth -= damage;
+        castleBarUI.UpdateCastleHealth(currentHealth / maxHealth, damage);
 
         if (currentHealth <= 0)
         {
             Die();
-            
+
         }
     }
 

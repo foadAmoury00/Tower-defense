@@ -3608,6 +3608,10 @@ PrefabInstance:
       propertyPath: maxHealth
       value: 5000
       objectReference: {fileID: 0}
+    - target: {fileID: 6820310458004581987, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
+      propertyPath: castleBarUI
+      value: 
+      objectReference: {fileID: 1960472669}
     - target: {fileID: 7983598341182393252, guid: d7737553ccfae204d9f7f60dabcc5cc4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.9124
