@@ -122,7 +122,7 @@ MonoBehaviour:
   walkSpeed: 3.5
   runSpeed: 5
   detectionRange: 19.57
-  attackRange: 12
+  attackRange: 14
   attackDamage: 15
   attackRate: 1
   animator: {fileID: 0}
@@ -176,6 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0346aea011542924d848e54d37a13357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  castleBarUI: {fileID: 0}
   maxHealth: 100
   destroyOnDeath: 1
 --- !u!54 &1643412725912164242

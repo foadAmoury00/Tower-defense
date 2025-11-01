@@ -75,6 +75,8 @@ public class HealthComponent : MonoBehaviour, IDamageable
     {
         isDead = false;
         currentHealth = maxHealth;
+        if (castleBarUI == null)
+            castleBarUI = GameObject.FindGameObjectWithTag("CastleUI").GetComponent<CastleBar_UI>();
     }
 
     public void SetDestroyOnDeath(bool value)   // NEW (so EnemyAI can switch behavior)
@@ -98,7 +100,14 @@ public class HealthComponent : MonoBehaviour, IDamageable
         if (isDead) return;
 
         currentHealth -= damage;
+        
+            
+        
+            
+
         castleBarUI.UpdateCastleHealth(currentHealth / maxHealth, damage);
+
+        
 
         if (currentHealth <= 0)
         {

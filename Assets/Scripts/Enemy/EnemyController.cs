@@ -395,7 +395,7 @@ public class EnemyAI : MonoBehaviour
 
 
     //detecting target either its enemy or castle
-    float dist;
+   
     GameObject target;
 
 
@@ -407,7 +407,7 @@ public class EnemyAI : MonoBehaviour
         agent.speed = walkSpeed;
         agent.angularSpeed = 360f;
         agent.acceleration = 8f;
-        agent.stoppingDistance = Mathf.Max(0.05f, attackRange - 0.2f);
+        agent.stoppingDistance = Mathf.Max(0.05f, attackRange - 4.2f);
 
         // Health
         health = GetComponent<HealthComponent>();
@@ -439,9 +439,13 @@ public class EnemyAI : MonoBehaviour
             ChangeAnimation(ENEMY_IDLE);
             return;
         }
+        float dist;
 
-        DetectTarget();
+        dist = Vector3.Distance(transform.position, targetTower.position);
+       
+            
 
+            Debug.Log("Distance to target tower: " + dist);
         if (dist <= attackRange)
         {
             Debug.Log("🔎 In distance of the attack range...");
@@ -452,12 +456,13 @@ public class EnemyAI : MonoBehaviour
             if (Time.time >= nextAttackTime)
             {
                 
-                    AttackTarget(targetTower.gameObject);
+                    AttackTarget();
                 
 
                 nextAttackTime = Time.time + 1f / Mathf.Max(0.0001f, attackRate);
             }
         }
+        
         else
         {
             agent.isStopped = false;
@@ -467,19 +472,13 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    private void DetectTarget()
-    {
-        if (gameObject.layer == LayerMask.NameToLayer("Enemy"))
-        {
-            dist = Vector3.Distance(transform.position, targetTower.position);
-        }
-        
-    }
+   
 
-    void AttackTarget(GameObject target)
+    void AttackTarget()
     {
         PlaySound(attackSound);
 
+        Debug.Log("Enemy attacked tower for " + attackDamage + " damage!");
         // Damage HealthComponent or TowerHealth (you have both in your project)
         var hc = targetTower.GetComponent<HealthComponent>();
         if (hc) { hc.TakeDamage(attackDamage); return; }
