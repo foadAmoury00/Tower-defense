@@ -130,7 +130,7 @@ MonoBehaviour:
   walkSpeed: 3.5
   runSpeed: 5
   detectionRange: 19.57
-  attackRange: 4.62
+  attackRange: 6
   attackDamage: 15
   attackRate: 1
   animator: {fileID: 0}
@@ -138,13 +138,17 @@ MonoBehaviour:
   spawnSound: {fileID: 0}
   attackSound: {fileID: 0}
   allyLayerName: Ally
-  defenderProjectilePrefab: {fileID: 7006744926371123422, guid: b6bf15a750afe084ababab9c2f2e5eaf, type: 3}
-  defenderAttackRange: 15
-  defenderTimeBetweenShots: 0.22
-  defenderProjectileSpeed: 0.8
+  enemyLayerName: Enemy
+  defenderRadius: 3.5
+  defenderDamage: 10
+  defenderHitInterval: 0.6
   defenderEnemyMask:
     serializedVersion: 2
-    m_Bits: 8
+    m_Bits: 64
+  enableMerge: 1
+  mergeDamageBonus: 10
+  mergeSizeMultiplier: 1.2
+  mergeEffect: {fileID: 0}
 --- !u!195 &5247867304742028738
 NavMeshAgent:
   m_ObjectHideFlags: 0

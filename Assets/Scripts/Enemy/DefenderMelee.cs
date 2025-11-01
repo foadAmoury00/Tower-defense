@@ -10,6 +10,11 @@ public class DefenderMelee : MonoBehaviour
 
     private float timer;
 
+    void Start()
+    {
+        name = "Ally(Clone)";
+    }
+
     private void Update()
     {
         timer -= Time.deltaTime;
@@ -22,7 +27,7 @@ public class DefenderMelee : MonoBehaviour
 
     private void Hit()
     {
-        int mask = (enemyMask.value != 0) ? enemyMask.value : LayerMask.GetMask("Enemy");
+        int mask =  LayerMask.GetMask("Enemy");
 
         // include trigger colliders (many enemies use triggers)
         Collider[] hits = Physics.OverlapSphere(
@@ -32,9 +37,12 @@ public class DefenderMelee : MonoBehaviour
             QueryTriggerInteraction.Collide
         );
 
+
         for (int i = 0; i < hits.Length; i++)
         {
+            Debug.Log("enemies ally is attacking "+hits[i].name);
             var hc = hits[i].GetComponentInParent<HealthComponent>();
+            
             if (hc != null)
             {
                 hc.TakeDamage(damagePerHit);

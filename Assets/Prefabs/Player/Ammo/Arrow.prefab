@@ -105,7 +105,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 100663296
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -126,7 +126,7 @@ BoxCollider:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 100663296
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -149,6 +149,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8fc7b2627c6a94a8d542da075786dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectileDamage: 50
   layerName: Enemy
-  projectileDamage: 10
-  projectileDamage: 40

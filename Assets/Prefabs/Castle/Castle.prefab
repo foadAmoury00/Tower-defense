@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5942156103988208951}
   - component: {fileID: 6820310458004581987}
   - component: {fileID: 7980163620168894482}
-  m_Layer: 26
+  m_Layer: 0
   m_Name: Castle
   m_TagString: Tower
   m_Icon: {fileID: 0}
@@ -117,6 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100000000
+  destroyOnDeath: 1
 --- !u!65 &7980163620168894482
 BoxCollider:
   m_ObjectHideFlags: 0

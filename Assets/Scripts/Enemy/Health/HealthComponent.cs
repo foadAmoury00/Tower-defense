@@ -83,7 +83,7 @@ public class HealthComponent : MonoBehaviour, IDamageable
 
     public void RenewHealth()
     {
-        isDead = false;
+        //isDead = false;
         currentHealth = maxHealth;
     }
 

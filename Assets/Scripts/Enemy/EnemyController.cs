@@ -1,4 +1,5 @@
-﻿//using UnityEngine;
+﻿#region Commented Enemy Controller
+//using UnityEngine;
 //using UnityEngine.AI;
 //using System.Collections;
 
@@ -332,11 +333,15 @@
 //        Gizmos.DrawWireSphere(transform.position, detectionRange);
 //    }
 //}using UnityEngine;
+#endregion
+
 
 
 using UnityEngine;
 using UnityEngine.AI;
 
+
+[RequireComponent(typeof(NavMeshAgent))]
 public class EnemyAI : MonoBehaviour
 {
     [Header("=== TARGET ===")]
@@ -371,17 +376,31 @@ public class EnemyAI : MonoBehaviour
     public float defenderHitInterval = 0.6f;
     public LayerMask defenderEnemyMask;   // set to Enemy in Inspector (or leave empty)
 
+
+    [Header("=== MERGE SETTINGS ===")]
+    public bool enableMerge = true;
+    public int mergeDamageBonus = 10;
+    public float mergeSizeMultiplier = 1.2f;
+    public ParticleSystem mergeEffect;
+
+
     // --- internals ---
     private NavMeshAgent agent;
     private HealthComponent health;
     private float nextAttackTime = 0f;
     private bool converted = false;
 
+
+    //detecting target either its enemy or castle
+    float dist;
+    GameObject target;
+
+
+
     void Start()
     {
         // NavMesh
         agent = GetComponent<NavMeshAgent>();
-        if (!agent) agent = gameObject.AddComponent<NavMeshAgent>();
         agent.speed = walkSpeed;
         agent.angularSpeed = 360f;
         agent.acceleration = 8f;
@@ -417,16 +436,21 @@ public class EnemyAI : MonoBehaviour
             return;
         }
 
-        float dist = Vector3.Distance(transform.position, targetTower.position);
+        DetectTarget();
 
         if (dist <= attackRange)
         {
+            Debug.Log("🔎 In distance of the attack range...");
+
             agent.isStopped = true;
             ChangeAnimation(ENEMY_ATTACK);
 
             if (Time.time >= nextAttackTime)
             {
-                AttackTarget();
+                
+                    AttackTarget(targetTower.gameObject);
+                
+
                 nextAttackTime = Time.time + 1f / Mathf.Max(0.0001f, attackRate);
             }
         }
@@ -439,7 +463,16 @@ public class EnemyAI : MonoBehaviour
         }
     }
 
-    void AttackTarget()
+    private void DetectTarget()
+    {
+        if (gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        {
+            dist = Vector3.Distance(transform.position, targetTower.position);
+        }
+        
+    }
+
+    void AttackTarget(GameObject target)
     {
         PlaySound(attackSound);
 
@@ -447,9 +480,10 @@ public class EnemyAI : MonoBehaviour
         var hc = targetTower.GetComponent<HealthComponent>();
         if (hc) { hc.TakeDamage(attackDamage); return; }
 
-        var th = targetTower.GetComponent<TowerHealth>();
-        if (th) th.TakeDamage(attackDamage);
+   
     }
+
+   
 
     // If player touches enemy -> kill via HealthComponent so OnDeath fires and conversion happens
     void OnTriggerEnter(Collider other)
@@ -516,6 +550,8 @@ public class EnemyAI : MonoBehaviour
         int mask = (defenderEnemyMask.value != 0)
             ? defenderEnemyMask.value
             : LayerMask.GetMask(enemyLayerName);
+
+
 
         melee.enemyMask = mask;
         melee.radius = defenderRadius;
@@ -602,4 +638,6 @@ public class EnemyAI : MonoBehaviour
             transform.position = nHit.position;
         }
     }
+
+ 
 }

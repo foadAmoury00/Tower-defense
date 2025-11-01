@@ -102,7 +102,6 @@ GameObject:
   - component: {fileID: 5520751305636492846}
   - component: {fileID: 7509153725840280751}
   - component: {fileID: 4194493951917493642}
-  - component: {fileID: 3118070973230461423}
   m_Layer: 3
   m_Name: First Person Player
   m_TagString: Player
@@ -323,22 +322,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
---- !u!114 &3118070973230461423
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2570353529489383373}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 947e9bd5ae0394249831f40a05722053, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 0}
-  attackRange: 10
-  timeBetweenShots: 2
-  projectileSpeed: 10
+  destroyOnDeath: 1
 --- !u!1 &3378791450460939291
 GameObject:
   m_ObjectHideFlags: 0
