@@ -733,29 +733,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3342380322168471000, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
-      propertyPath: m_Convex
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4833384657747331147, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
       propertyPath: m_Name
       value: dice_cube
-      objectReference: {fileID: 0}
-    - target: {fileID: 4833384657747331147, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
-      propertyPath: m_Layer
-      value: 24
-      objectReference: {fileID: 0}
-    - target: {fileID: 5213040884251759345, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5213040884251759345, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 5213040884251759345, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 5213040884251759345, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -797,46 +777,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5213040884251759345, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
-      propertyPath: m_ConstrainProportionsScale
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 4477194201764622828, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4833384657747331147, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 668760238}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
---- !u!1 &668760237 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4833384657747331147, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
+--- !u!95 &668760238 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 6335096554600171894, guid: addd8cc3bd004c14e88ce7545a455c1d, type: 3}
   m_PrefabInstance: {fileID: 668760236}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &668760238
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 668760237}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 35ac02ca7f3a4634a88850b0f10a628f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &798121471
 GameObject:
   m_ObjectHideFlags: 0
@@ -950,7 +900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.8264294, y: 0.53800005}
   m_AnchorMax: {x: 0.9823811, y: 0.9404849}
-  m_AnchoredPosition: {x: 1, y: -3.2429962}
+  m_AnchoredPosition: {x: 1, y: -3.242981}
   m_SizeDelta: {x: -10, y: 0.48609924}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &882224937

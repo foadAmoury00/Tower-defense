@@ -21,6 +21,8 @@ public class Timer : MonoBehaviour
         timerText.text = "Time: " + Mathf.Ceil(timeLeft);
     }
 
+ 
+
     public void AddTime(float seconds)
     {
         timeLeft += seconds;

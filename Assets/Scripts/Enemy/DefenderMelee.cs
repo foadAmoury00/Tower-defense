@@ -1,3 +1,4 @@
+using System.Linq;
 using UnityEngine;
 
 public class DefenderMelee : MonoBehaviour
@@ -37,7 +38,7 @@ public class DefenderMelee : MonoBehaviour
             QueryTriggerInteraction.Collide
         );
 
-
+        Debug.Log("enemies ally is attacking "+hits.Length);
         for (int i = 0; i < hits.Length; i++)
         {
             Debug.Log("enemies ally is attacking "+hits[i].name);

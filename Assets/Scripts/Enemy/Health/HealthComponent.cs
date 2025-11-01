@@ -101,8 +101,11 @@ public class HealthComponent : MonoBehaviour, IDamageable
         if (currentHealth <= 0)
         {
             Die();
+            
         }
     }
+
+   
 
     private void Die()
     {

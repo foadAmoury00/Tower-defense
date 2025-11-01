@@ -383,6 +383,9 @@ public class EnemyAI : MonoBehaviour
     public float mergeSizeMultiplier = 1.2f;
     public ParticleSystem mergeEffect;
 
+    [Header("Time")]
+    [SerializeField] Timer timer;
+
 
     // --- internals ---
     private NavMeshAgent agent;
@@ -413,6 +416,7 @@ public class EnemyAI : MonoBehaviour
             // IMPORTANT: do not auto-destroy so we can convert this instance
             health.SetDestroyOnDeath(false);
             health.OnDeath += HandleDeath;
+            
         }
 
         // Find tower if not assigned
@@ -483,18 +487,19 @@ public class EnemyAI : MonoBehaviour
    
     }
 
-   
 
+    #region When Player touches enemy - Old Code
     // If player touches enemy -> kill via HealthComponent so OnDeath fires and conversion happens
-    void OnTriggerEnter(Collider other)
-    {
-        if (converted) return;
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (converted) return;
 
-        if (other.CompareTag("Player"))
-        {
-            if (health != null) health.TakeDamage(999999f);
-        }
-    }
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        if (health != null) health.TakeDamage(999999f);
+    //    }
+    //}
+    #endregion
 
     // --- conversion path ---
     private void HandleDeath()
@@ -584,8 +589,8 @@ public class EnemyAI : MonoBehaviour
     // If someone else calls Die(), unify through HealthComponent
     public void Die()
     {
-        if (health != null) health.TakeDamage(999999f);
-        else Destroy(gameObject);
+        
+         Destroy(gameObject);
     }
     private void EnsureStandingComponents()
     {

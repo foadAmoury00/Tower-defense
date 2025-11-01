@@ -8,11 +8,14 @@ public class Projectile : MonoBehaviour
     [SerializeField] float projectileDamage = 10f;
 
 
+
     float lifeTime = 5f;
 
     [SerializeField]
     
     string layerName = "Enemy";
+
+
 
 
     private void OnTriggerEnter(Collider other)
