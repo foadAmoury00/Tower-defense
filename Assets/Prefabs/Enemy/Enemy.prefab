@@ -122,7 +122,7 @@ MonoBehaviour:
   walkSpeed: 3.5
   runSpeed: 5
   detectionRange: 19.57
-  attackRange: 6
+  attackRange: 12
   attackDamage: 15
   attackRate: 1
   animator: {fileID: 0}
@@ -156,7 +156,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -219,7 +219,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c5c099432818fcc40ac77978b8289813, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: c5c099432818fcc40ac77978b8289813, type: 3}
       propertyPath: m_LocalPosition.z
