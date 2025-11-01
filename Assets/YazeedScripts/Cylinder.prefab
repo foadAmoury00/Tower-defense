@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4885207936163267402}
   - component: {fileID: 4780319800429653972}
   - component: {fileID: 5942156103988208951}
+  - component: {fileID: 6820310458004581987}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Tower
@@ -107,11 +108,26 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 1.2969754
+  m_Height: 2.5939507
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: -0.34198785, y: -0.03666711, z: -0.45498705}
 --- !u!114 &5942156103988208951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3721196944627491106}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa86dcf000b41d849821e01d2c0aa09e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 100
+  healthBar: {fileID: 0}
+--- !u!114 &6820310458004581987
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -120,9 +136,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3721196944627491106}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa86dcf000b41d849821e01d2c0aa09e, type: 3}
+  m_Script: {fileID: 11500000, guid: 0346aea011542924d848e54d37a13357, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50000
-  currentHealth: 50000
-  healthBar: {fileID: 0}
+  maxHealth: 100
