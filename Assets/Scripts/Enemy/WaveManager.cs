@@ -141,22 +141,35 @@ public class WaveManager
             enemyAI.walkSpeed *= speedMultipliers[levelIndex];
             enemyAI.runSpeed *= speedMultipliers[levelIndex];
 
-            if (waveLevel >= 3)
+            if (waveLevel >= 2)
             {
                 enemyAI.enableMerge = true;
 
-                for (int spawnIndex = 2; spawnIndex < spawnPoints.Length; spawnIndex++)
+                for (int spawnIndex = 3; spawnIndex < 3*2; spawnIndex++)
                 {
                     spawnPoints[spawnIndex].gameObject.SetActive(true);
                 }
 
 
-                if (waveLevel >= 4)
+                if (waveLevel >= 3)
                 {
+                    for (int spawnIndex = 3*2; spawnIndex < 3*3; spawnIndex++)
+                    {
+                        spawnPoints[spawnIndex].gameObject.SetActive(true);
+                    }
                     enemyAI.mergeDamageBonus = 15;
                     enemyAI.mergeSizeMultiplier = 1.3f;
                 }
-                if (waveLevel >= 5)
+
+                if (waveLevel >= 4)
+                {
+                    for (int spawnIndex = 3 * 3; spawnIndex < 3 * 4; spawnIndex++)
+                    {
+                        spawnPoints[spawnIndex].gameObject.SetActive(true);
+                    }
+                }
+
+                    if (waveLevel >= 5)
                 {
                     enemyAI.mergeDamageBonus = 20;
                     enemyAI.mergeSizeMultiplier = 1.5f;
