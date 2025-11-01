@@ -163,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46c3711159582dd4f859dcba90664c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  diceAnimator: {fileID: 668760238}
+  animator: {fileID: 668760238}
   resultText: {fileID: 1120637657}
   addedTime: 15
   timer: {fileID: 649144809}

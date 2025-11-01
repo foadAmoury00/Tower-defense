@@ -90,7 +90,7 @@ public class Dice_UI : MonoBehaviour
 
     private IEnumerator FadeLabelToVisible()
     {
-        yield return new WaitForSeconds(fadeDuration);
+        yield return new WaitForSeconds(3f);
         targetAlpha = 1f;
         isFading = true;
     }

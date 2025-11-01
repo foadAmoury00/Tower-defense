@@ -63,7 +63,6 @@ public class Dice : MonoBehaviour
                 timer.AddTime(addedTime);
         }
 
-        animator.Play("Idle");
         isRolling = false;
     }
 
