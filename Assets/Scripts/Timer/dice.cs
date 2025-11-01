@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 public class Dice : MonoBehaviour
 {
-    public Animator diceAnimator;
+    public Animator animator;
     public TMP_Text resultText;
     public float addedTime = 15f;
 
@@ -14,20 +15,26 @@ public class Dice : MonoBehaviour
 
     int noRepeating;
 
+    
+    public Action DiceCompleted;
+   
+
     void Start()
     {
         noRepeating = -1;
         resultText.text = "Press R to roll the dice!";
-        diceAnimator.Play("Idle");
+        //animator.Play("Idle");
+
+        animator = GetComponent<Animator>();    
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            RollDice();
-        }
-    }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.R))
+    //    {
+    //        RollDice();
+    //    }
+    //}
 
     public void RollDice()
     {
@@ -40,10 +47,12 @@ public class Dice : MonoBehaviour
         isRolling = true;
         resultText.text = "Rolling...";
 
-        int result = Random.Range(1, 7);
-        diceAnimator.Play(result.ToString());
+        int result = UnityEngine.Random.Range(1, 7);
+        animator.Play(result.ToString());
 
         yield return new WaitForSeconds(GetCurrentAnimationLength());
+
+        DiceCompleted?.Invoke();
 
         resultText.text = "You rolled: " + result;
 
@@ -54,13 +63,13 @@ public class Dice : MonoBehaviour
                 timer.AddTime(addedTime);
         }
 
-        diceAnimator.Play("Idle");
+        animator.Play("Idle");
         isRolling = false;
     }
 
     private float GetCurrentAnimationLength()
     {
-        AnimatorStateInfo state = diceAnimator.GetCurrentAnimatorStateInfo(0);
+        AnimatorStateInfo state = animator.GetCurrentAnimatorStateInfo(0);
         return state.length;
     }
 }
