@@ -1,39 +1,4 @@
-//using Unity.VisualScripting;
-//using UnityEngine;
 
-//public class Projectile : MonoBehaviour
-//{
-
-//    HealthComponent healthComponent;
-
-//    float lifeTime = 5f;
-
-//    [SerializeField]
-
-//    string layerName = "Enemy";
-
-//    private void OnTriggerEnter(Collider other)
-//    {
-//        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
-//        {
-//            Debug.Log("Hit");
-//            Destroy(gameObject);
-//            healthComponent = other.GetComponent<HealthComponent>();
-
-//            if (healthComponent != null)
-//            {
-//                healthComponent.TakeDamage(10);
-//            }
-//        }
-//        else
-//        {
-//            Destroy(gameObject,lifeTime);
-//        }
-
-//    }
-
-
-//}
 using UnityEngine;
 
 public class Projectile : MonoBehaviour
@@ -52,15 +17,33 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == LayerMask.NameToLayer("Enemy"))
+        if (other.gameObject.layer == LayerMask.NameToLayer(layerName))
+        
         {
-            var healthComponent = other.GetComponentInParent<HealthComponent>(); // works if collider is on child
+            HealthComponent healthComponent = new HealthComponent();
+            if (other.transform.childCount > 0)
+            {
+                healthComponent = other.GetComponentInParent<HealthComponent>();
+            }
+            else 
+            {
+                healthComponent = other.GetComponent<HealthComponent>();
+
+            }
+            // works if collider is on child
+
+
+
+
             if (healthComponent != null)
             {
                 healthComponent.TakeDamage(projectileDamage);
-                healthComponent.TakeDamage(projectileDamage);
             }
-            Destroy(gameObject); // destroy after applying damage
+            Destroy(gameObject); 
+        }
+        else
+        {
+            Destroy(gameObject, lifeTime);
         }
     }
 }
