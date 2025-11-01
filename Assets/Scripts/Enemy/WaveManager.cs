@@ -1,20 +1,24 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class Temp : MonoBehaviour
 {
     [Header("Spawn Settings")]
-    public Transform[] spawnPoints;
+    public SpawnPoint[] spawnPoints; // مصفوفة من الكلاس الجديد
     public bool randomSpawnPoints = true;
-    public GameObject enemyPrefab; // ضع برفاب العدو هنا
+    public GameObject enemyPrefab;
 
     [Header("Difficulty Settings - Up to Level 5")]
     public float[] healthMultipliers = { 1.0f, 1.3f, 1.6f, 2.0f, 2.5f };
     public float[] damageMultipliers = { 1.0f, 1.2f, 1.4f, 1.7f, 2.0f };
     public float[] speedMultipliers = { 1.0f, 1.1f, 1.2f, 1.3f, 1.4f };
     public int[] enemyCounts = { 5, 8, 12, 15, 18 };
+
+    [Header("Effects & Sounds")]
+    public AudioClip waveStartSound;
+    public AudioClip waveCompleteSound;
+    private AudioSource audioSource;
 
     [Header("Current Wave Info")]
     public int currentWaveNumber = 1;
@@ -24,8 +28,22 @@ public class Temp : MonoBehaviour
     private bool isSpawning = false;
     private int enemiesAlive = 0;
 
+    [System.Serializable]
+    public class SpawnPoint
+    {
+        public Transform pointTransform; // موقع السباون
+        public ParticleSystem spawnParticle; // البارتكل الخاص بهذا السباون
+        public bool isActive = true; // إذا كان السباون نشط
+    }
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        if (audioSource == null)
+        {
+            audioSource = gameObject.AddComponent<AudioSource>();
+        }
+
         StartCoroutine(EndlessWaves());
     }
 
@@ -34,9 +52,10 @@ public class Temp : MonoBehaviour
         while (true)
         {
             Wave currentWave = CreateWave(currentWaveNumber);
+            PlayWaveStartSound();
             yield return StartCoroutine(SpawnWave(currentWave));
-
             currentWaveNumber++;
+            PlayWaveCompleteSound();
             yield return new WaitForSeconds(currentWave.timeBeforeNextWave);
         }
     }
@@ -82,35 +101,59 @@ public class Temp : MonoBehaviour
             return;
         }
 
-        Vector3 spawnPosition = GetSpawnPosition();
-        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-        ApplyWaveDifficulty(enemy, waveLevel);
-        RegisterEnemyDeathEvent(enemy);
+        // الحصول على نقطة سباون مع بارتكلها
+        SpawnPoint selectedSpawnPoint = GetSpawnPoint();
+
+        if (selectedSpawnPoint != null && selectedSpawnPoint.isActive)
+        {
+            Vector3 spawnPosition = selectedSpawnPoint.pointTransform.position;
+
+            // تشغيل البارتكل الخاص بهذه النقطة
+            PlaySpawnParticle(selectedSpawnPoint);
+
+            GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            ApplyWaveDifficulty(enemy, waveLevel);
+            RegisterEnemyDeathEvent(enemy);
+
+            Debug.Log($"🎯 Spawned enemy at {selectedSpawnPoint.pointTransform.name}");
+        }
     }
 
-    Vector3 GetSpawnPosition()
+    SpawnPoint GetSpawnPoint()
     {
         if (spawnPoints == null || spawnPoints.Length == 0)
-            return transform.position;
+            return null;
 
-        GameObject spawnPoint = spawnPoints[spawnPoints.Length -1].gameObject;
+        List<SpawnPoint> activeSpawnPoints = new List<SpawnPoint>();
+
+        // جمع جميع نقاط السباون النشطة
+        foreach (SpawnPoint spawnPoint in spawnPoints)
+        {
+            if (spawnPoint.isActive && spawnPoint.pointTransform != null)
+            {
+                activeSpawnPoints.Add(spawnPoint);
+            }
+        }
+
+        if (activeSpawnPoints.Count == 0)
+            return null;
 
         if (randomSpawnPoints)
-            spawnPoint.transform.position = spawnPoints[Random.Range(0, spawnPoints.Length)].position;
+        {
+            // اختيار عشوائي من النقاط النشطة
+            return activeSpawnPoints[Random.Range(0, activeSpawnPoints.Count)];
+        }
         else
-            spawnPoint.transform.position = spawnPoints[enemiesAlive % spawnPoints.Length].position;
-
-        if (spawnPoint.activeSelf)
-            return spawnPoint.transform.position;
-        else
-            return transform.position;
+        {
+            // تناوب بين النقاط النشطة
+            return activeSpawnPoints[enemiesAlive % activeSpawnPoints.Count];
+        }
     }
 
     void ApplyWaveDifficulty(GameObject enemy, int waveLevel)
     {
         int levelIndex = Mathf.Min(waveLevel - 1, MAX_LEVEL - 1);
 
-        // تعديل HealthComponent
         HealthComponent healthComponent = enemy.GetComponent<HealthComponent>();
         if (healthComponent != null)
         {
@@ -133,7 +176,6 @@ public class Temp : MonoBehaviour
             }
         }
 
-        // تعديل EnemyAI
         EnemyAI enemyAI = enemy.GetComponent<EnemyAI>();
         if (enemyAI != null)
         {
@@ -145,11 +187,14 @@ public class Temp : MonoBehaviour
             {
                 enemyAI.enableMerge = true;
 
-                for (int spawnIndex = 2; spawnIndex < spawnPoints.Length; spawnIndex++)
+                // تفعيل نقاط السباون الإضافية من الموجة 3
+                for (int i = 2; i < spawnPoints.Length; i++)
                 {
-                    spawnPoints[spawnIndex].gameObject.SetActive(true);
+                    if (i < spawnPoints.Length)
+                    {
+                        spawnPoints[i].isActive = true;
+                    }
                 }
-
 
                 if (waveLevel >= 4)
                 {
@@ -179,7 +224,43 @@ public class Temp : MonoBehaviour
         enemiesAlive--;
     }
 
-    // كلاس Wave الداخلي
+    // 🔥 تشغيل البارتكل الخاص بنقطة السباون
+    void PlaySpawnParticle(SpawnPoint spawnPoint)
+    {
+        if (spawnPoint.spawnParticle != null)
+        {
+            // تشغيل البارتكل الموجود مسبقاً على نقطة السباون
+            spawnPoint.spawnParticle.Play();
+            Debug.Log($"✨ Playing particle for {spawnPoint.pointTransform.name}");
+        }
+    }
+
+    void PlayWaveStartSound()
+    {
+        if (waveStartSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(waveStartSound);
+        }
+    }
+
+    void PlayWaveCompleteSound()
+    {
+        if (waveCompleteSound != null && audioSource != null)
+        {
+            audioSource.PlayOneShot(waveCompleteSound);
+        }
+    }
+
+    public string GetSpawnPointsInfo()
+    {
+        int activeCount = 0;
+        foreach (SpawnPoint sp in spawnPoints)
+        {
+            if (sp.isActive) activeCount++;
+        }
+        return $"Spawn Points: {activeCount}/{spawnPoints.Length} active";
+    }
+
     [System.Serializable]
     public class Wave
     {
@@ -192,6 +273,6 @@ public class Temp : MonoBehaviour
 
     public string GetCurrentWaveInfo()
     {
-        return $"Wave: {currentWaveNumber} | Level: {currentWaveLevel}/5";
+        return $"Wave: {currentWaveNumber} | Level: {currentWaveLevel}/5 | {GetSpawnPointsInfo()}";
     }
 }
