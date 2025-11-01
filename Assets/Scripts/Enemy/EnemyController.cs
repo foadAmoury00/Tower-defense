@@ -642,6 +642,7 @@ public class EnemyAI : MonoBehaviour
         {
             transform.position = nHit.position;
         }
+        SoundManager.Instance.Play("Attack1");
     }
 
  

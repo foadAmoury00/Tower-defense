@@ -48,5 +48,6 @@ public class Projectile : MonoBehaviour
         {
             Destroy(gameObject, lifeTime);
         }
+        SoundManager.Instance.Play("Arrow");
     }
 }

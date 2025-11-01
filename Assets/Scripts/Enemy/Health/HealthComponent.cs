@@ -116,5 +116,6 @@ public class HealthComponent : MonoBehaviour, IDamageable
 
         if (destroyOnDeath)                   // only destroy if still set to true
             Destroy(gameObject);
+        SoundManager.Instance.Play("CastleDamge");
     }
 }

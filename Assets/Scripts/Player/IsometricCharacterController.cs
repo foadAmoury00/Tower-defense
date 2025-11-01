@@ -228,5 +228,9 @@ public class IsometricCharacterController : MonoBehaviour
     private void onControlsChanged(PlayerInput obj)
     {
         getCurrentControlType(obj);
+        SoundManager.Instance.Play("footSteps");
+        SoundManager.Instance.Play("Background");
+        SoundManager.Instance.Play("WindBackground");
     }
+    
 }
