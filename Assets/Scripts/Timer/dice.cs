@@ -9,16 +9,11 @@ public class Dice : MonoBehaviour
     public float addedTime = 15f;
 
     private bool isRolling = false;
-
     public Timer timer;
-
-    int noRepeating;
 
     void Start()
     {
-        noRepeating = -1;
         resultText.text = "Press R to roll the dice!";
-        diceAnimator.Play("Idle");
     }
 
     void Update()
@@ -38,29 +33,20 @@ public class Dice : MonoBehaviour
     private IEnumerator RollCoroutine()
     {
         isRolling = true;
+        diceAnimator.speed = 1f;
         resultText.text = "Rolling...";
 
         int result = Random.Range(1, 7);
-        diceAnimator.Play(result.ToString());
+        diceAnimator.Play(result.ToString(), 0, 0f);
 
-        yield return new WaitForSeconds(GetCurrentAnimationLength());
+        yield return new WaitForSeconds(3f);
+        diceAnimator.speed = 0f;
 
         resultText.text = "You rolled: " + result;
 
-        if (addedTime > 0)
-        {
-            
-            if (timer != null)
-                timer.AddTime(addedTime);
-        }
+        if (addedTime > 0 && timer != null)
+            timer.AddTime(addedTime);
 
-        diceAnimator.Play("Idle");
         isRolling = false;
-    }
-
-    private float GetCurrentAnimationLength()
-    {
-        AnimatorStateInfo state = diceAnimator.GetCurrentAnimatorStateInfo(0);
-        return state.length;
     }
 }
